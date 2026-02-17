@@ -9,9 +9,12 @@ jobs:
       # এই দেখ মামা, এইটাই সেই হার্ডেন রানার। সবার আগে এইটারে ডাক দিবি।
       # এটা অডিট মোডে চলবে, মানে সব দেখবে কিন্তু কিছু ব্লক করবে না।
       - name: Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@95d9a5deda9de15063e7595e9719c11c38c90ae2 # v2.13.2
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            www.google.com:443
 
       - name: Checkout Code
         uses: actions/checkout@v4
