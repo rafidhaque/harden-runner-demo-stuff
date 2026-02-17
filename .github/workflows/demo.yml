@@ -23,7 +23,7 @@ jobs:
       # মনে কর আমরা গুগল মামারে একটা পিং মারলাম।
       - name: Call Google
         run: |
-          curl -I https://www.google.com
+          curl -I https://www.facebook.com
           echo "Google Mama responded! Khela hobe!"
 
       # আরেকটা আজাইরা কাজ, একটা ফাইল বানাই।
