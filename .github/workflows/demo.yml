@@ -11,7 +11,10 @@ jobs:
       - name: Harden Runner
         uses: step-security/harden-runner@v2
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            google.com:443
 
       # ২. কোড চেকআউট
       - name: Checkout Code
