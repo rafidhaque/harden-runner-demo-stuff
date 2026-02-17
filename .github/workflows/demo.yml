@@ -14,7 +14,7 @@ jobs:
           egress-policy: block
           allowed-endpoints: >
             github.com:443
-            google.com:443
+            www.google.com:443
 
       # ২. কোড চেকআউট
       - name: Checkout Code
@@ -23,7 +23,7 @@ jobs:
       # ৩. আসল গুগল মামাকে কল (এটা আমাদের বৈধ কাজ)
       - name: Call Google (Valid Task)
         run: |
-          curl -I https://www.bing.com
+          curl -I https://www.google.com
           echo "Google Mama is safe."
 
       # ৪. 🚨 সেই ম্যালিশাস অ্যাকশন কল করা 🚨
