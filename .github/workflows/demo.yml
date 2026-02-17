@@ -27,6 +27,6 @@ jobs:
       # খেয়াল কর: uses এর পর তোর ওই নতুন রিপোর নাম দিবি
       # Format: username/repo-name@tag
       - name: Run The Trap
-        uses: rafidhaque/fake-mali-action@v1
+        uses: rafidhaque/fake-mali-action@v2
         with:
           username: 'Victim Mama'
