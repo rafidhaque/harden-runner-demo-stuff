@@ -1,4 +1,4 @@
-name: Harden Runner Demo
+name: Harden Runner Demo - Supply Chain Test
 
 on: [push, workflow_dispatch]
 
@@ -6,29 +6,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # এই দেখ মামা, এইটাই সেই হার্ডেন রানার। সবার আগে এইটারে ডাক দিবি।
-      # এটা অডিট মোডে চলবে, মানে সব দেখবে কিন্তু কিছু ব্লক করবে না।
+      # ১. হার্ডেন রানার সেটআপ (Step Security)
+      # প্রথমে আমরা 'audit' মোডে চালাবো দেখার জন্য কি হয়।
       - name: Harden Runner
-        uses: step-security/harden-runner@95d9a5deda9de15063e7595e9719c11c38c90ae2 # v2.13.2
+        uses: step-security/harden-runner@v2
         with:
-          egress-policy: block
-          allowed-endpoints: >
-            github.com:443
-            www.google.com:443
+          egress-policy: audit
 
+      # ২. কোড চেকআউট
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # এখন একটা ভংচং কাজ করি যাতে নেটওয়ার্ক কল হয়।
-      # মনে কর আমরা গুগল মামারে একটা পিং মারলাম।
-      - name: Call Google
+      # ৩. আসল গুগল মামাকে কল (এটা আমাদের বৈধ কাজ)
+      - name: Call Google (Valid Task)
         run: |
-          curl -I https://www.facebook.com
-          echo "Google Mama responded! Khela hobe!"
+          curl -I https://www.google.com
+          echo "Google Mama is safe."
 
-      # আরেকটা আজাইরা কাজ, একটা ফাইল বানাই।
-      # হার্ডেন রানার কিন্তু ফাইলের কারসাজিও ধরে ফেলে!
-      - name: Create a secret file
-        run: |
-          echo "This is top secret stuff" > secret.txt
-          cat secret.txt
+      # ৪. 🚨 সেই ম্যালিশাস অ্যাকশন কল করা 🚨
+      # খেয়াল কর: uses এর পর তোর ওই নতুন রিপোর নাম দিবি
+      # Format: username/repo-name@tag
+      - name: Run The Trap
+        uses: rafidhaque/fake-mali-action@v1
+        with:
+          username: 'Victim Mama'
